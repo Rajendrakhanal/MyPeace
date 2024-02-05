@@ -13,7 +13,7 @@ require("dotenv").config();
 const port = process.env.PORT || 3000;
 
 // Configuring homeroute
-app.use("api/v1", dashboard);
+app.use("/api/v1", dashboard);
 
 // Defining start method to get backend started up!
 const start = async () => {
