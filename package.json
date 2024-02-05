@@ -1,0 +1,16 @@
+{
+  "name": "mypeace",
+  "version": "1.0.0",
+  "description": "An application entitled to help you cope with MENTAL STRESS AND ANXIETY. Here, you can find your inner peace!",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ujjwal Jha, Surav Sthrestha, Rajendra Khanal",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.1",
+    "express": "^4.18.2"
+  }
+}
