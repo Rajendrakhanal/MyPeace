@@ -40,21 +40,21 @@ const registerUser = async (req, res) => {
 };
 
 const loginUser = async (req, res) => {
-    try {
-        const {email, password} = req.body;
-        const User = await user.findOne({email});
-        if (!User) {
-            return res.status(400).json({message: "Invalid email or password"});
-        }
-        const validPassword = await bcrypt.compare(password, User.password);
-        if(!validPassword){
-            return res.status(400).json({message: "Incorrect Password"});
-        }
-         const token = createToken(User._id);
-         res.status(200).json({ _id: User._id, name: User.name, email, token });
-    } catch (error) {
-        res.status(500).json({ message: error.message });
+  try {
+    const { email, password } = req.body;
+    const User = await user.findOne({ email });
+    if (!User) {
+      return res.status(400).json({ message: "Invalid email or password" });
     }
-} 
+    const validPassword = await bcrypt.compare(password, User.password);
+    if (!validPassword) {
+      return res.status(400).json({ message: "Incorrect Password" });
+    }
+    const token = createToken(User._id);
+    res.status(200).json({ _id: User._id, name: User.name, email, token });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 
-module.exports = { registerUser, loginUser }
+module.exports = { registerUser, loginUser };

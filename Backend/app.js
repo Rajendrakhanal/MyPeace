@@ -18,10 +18,10 @@ const uri = process.env.CONNECTION_STRING;
 app.use("/api/v1/user", router);
 
 // Defining start method to get backend started up!
-const start = async () => {
+const start = () => {
   try {
-    app.listen(port, async () => {
-      await connectDatabase(uri);
+    app.listen(port, () => {
+      connectDatabase(uri);
       console.log(`Server is running on port ${port}`);
     });
   } catch (error) {
