@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
-const router = require("./routes/userRoute");
+const router = require("./routes/users");
 const connectDatabase = require("./database/connect");
 
 // Middleware
@@ -15,7 +15,7 @@ const port = process.env.PORT || 3000;
 const uri = process.env.CONNECTION_STRING;
 
 // Configuring routes
-app.use("/api/v1/user", router);
+app.use("/api/v1/users", router);
 
 // Defining start method to get backend started up!
 const start = () => {
