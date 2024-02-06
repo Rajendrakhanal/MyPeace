@@ -9,7 +9,7 @@ const createToken = (_id) => {
 };
 
 const registerUser = async (req, res) => {
-  const { username, email, password } = req.body;
+  const { username, email, password, confirmPassword } = req.body;
 
   let User = await user.findOne({ email });
   if (User) {
@@ -18,7 +18,7 @@ const registerUser = async (req, res) => {
       .json({ message: "User with given email already exists" });
   }
 
-  if (!username || !email || !password) {
+  if (!username || !email || !password || !confirmPassword) {
     return res.status(400).json({ message: "All fields are mandatory!" });
   }
 
@@ -26,8 +26,14 @@ const registerUser = async (req, res) => {
     return res.status(400).json({ message: "Not a valid email" });
   }
 
-  if (!validator.isStrongPassword(password)) {
-    return res.status(400).json({ message: "Not a strong password" });
+  if (password.length < 8) {
+    return res
+      .status(400)
+      .json({ message: "Password should be atleast 8 characters long" });
+  }
+
+  if (password !== confirmPassword) {
+    return res.status(400).json({ message: "Passwords do not match" });
   }
 
   User = new user({ username, email, password });
@@ -37,9 +43,7 @@ const registerUser = async (req, res) => {
 
   await User.save();
 
-  const token = createToken(user._id);
-
-  res.status(200).json({ _id: User.id, username, email, token });
+  res.status(200).json({ _id: User.id, username, email });
 };
 
 const loginUser = async (req, res) => {
