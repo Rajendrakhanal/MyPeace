@@ -2,7 +2,7 @@ const bcrypt = require("bcrypt");
 const validator = require("validator");
 const jwt = require("jsonwebtoken");
 const user = require("../models/user");
-const UserResponse = require("./models/userResponse");
+const UserResponse = require("../models/userResponse");
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
 require("dotenv").config();
