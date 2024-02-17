@@ -34,21 +34,17 @@ const createToken = (_id) => {
 };
 
 const registerUser = async (req, res) => {
-  const { username, email, password, confirmPassword } = req.body;
+  const { firstName, lastName, username, password, confirmPassword } = req.body;
 
-  let User = await user.findOne({ email });
+  let User = await user.findOne({ username });
   if (User) {
     return res
       .status(400)
-      .json({ message: "User with given email already exists" });
+      .json({ message: "User with given username already exists" });
   }
 
-  if (!username || !email || !password || !confirmPassword) {
+  if (!firstName || !lastName || !username || !password || !confirmPassword) {
     return res.status(400).json({ message: "All fields are mandatory!" });
-  }
-
-  if (!validator.isEmail(email)) {
-    return res.status(400).json({ message: "Not a valid email" });
   }
 
   if (password.length < 8) {
@@ -61,14 +57,14 @@ const registerUser = async (req, res) => {
     return res.status(400).json({ message: "Passwords do not match" });
   }
 
-  User = new user({ username, email, password });
+  User = new user({ firstName, lastName, username, password });
 
   const salt = await bcrypt.genSalt(8);
   User.password = await bcrypt.hash(User.password, salt);
 
   await User.save();
 
-  res.status(200).json({ _id: User.id, username, email });
+  res.status(200).json({ _id: User.id, firstName, lastName, username });
 };
 
 const loginUser = async (req, res) => {
@@ -81,11 +77,16 @@ const loginUser = async (req, res) => {
 
     const validPassword = await bcrypt.compare(password, User.password);
     if (!validPassword) {
-      return res.status(400).json({ message: "Incorrect Password" });
+      return res
+        .status(400)
+        .json({ message: "Incorrect username or password" });
     }
 
+    const { firstName, lastName } = User;
     const token = createToken(User._id);
-    res.status(200).json({ _id: User._id, username, email: User.email, token });
+    res
+      .status(200)
+      .json({ _id: User._id, firstName, lastName, username, token });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
