@@ -21,7 +21,7 @@ app.use("/api/v1/users", router);
 const start = () => {
   try {
     app.listen(port, () => {
-      connectDatabase(uri);
+      // connectDatabase(uri);
       console.log(`Server is running on port ${port}`);
     });
   } catch (error) {

@@ -5,6 +5,7 @@ import SignupForm from "./components/SignupForm";
 import LoginForm from "./components/LoginForm";
 import PageNotFound from "./components/PageNotFound";
 import Notification from "./components/Notification";
+import Chat from "./components/Chat";
 
 import userService from "./services/user";
 import { INotification } from "./types/notification";
@@ -75,7 +76,7 @@ export default function App() {
             />
           }
         />
-
+        <Route path="/chat" element={<Chat />}/>
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </div>

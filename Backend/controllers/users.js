@@ -1,32 +1,9 @@
 const bcrypt = require("bcrypt");
-const validator = require("validator");
 const jwt = require("jsonwebtoken");
 const user = require("../models/user");
-const UserResponse = require("../models/userResponse");
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
 require("dotenv").config();
-
-const genAI = new GoogleGenerativeAI(process.env.API_KEY);
-
-const interactWithGeminiAPI = async (userResponses) => {
-  const model = genAI.getGenerativeModel({ model: "gemini-pro" });
-
-  const chat = model.startChat({
-    history: userResponses.map((response) => ({
-      role: response.role,
-      parts: response.parts,
-    })),
-    generationConfig: {
-      maxOutputTokens: 100,
-    },
-  });
-  const msg = "How are you feeling right now?";
-
-  const result = await chat.sendMessage(msg);
-  const responseFromGemini = await result.response;
-  return responseFromGemini.text();
-};
 
 const createToken = (_id) => {
   const jwtkey = process.env.SECRET_KEY;
@@ -92,22 +69,24 @@ const loginUser = async (req, res) => {
   }
 };
 
+const genAI = new GoogleGenerativeAI(process.env.API_KEY);
+
 const chatBot = async (req, res) => {
-  const { userId, responses } = req.body;
-
   try {
-    const userResponseEntry = new UserResponse({ userId, responses });
-    await userResponseEntry.save();
+    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+    const { responses } = req.body;
+    if (!responses) {
+      return res
+        .status(400)
+        .json({ error: "Message is required in the request body." });
+    }
+    const result = await model.generateContent(
+      `Answer this question an emphatetic tone so as to pursuade the person to do better, to try harder and to make the person feel better. The question or statement is: 
+        ${responses}`
+    );
 
-    const geminiResponse = await interactWithGeminiAPI(responses);
-
-    const modelResponseEntry = new UserResponse({
-      userId,
-      responses: [{ role: "model", parts: geminiResponse }],
-    });
-    await modelResponseEntry.save();
-
-    res.json({ success: true, response: geminiResponse });
+    const response = await result.response.text();
+    res.status(200).json({ success: true, message: response });
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, error: "Internal Server Error" });
