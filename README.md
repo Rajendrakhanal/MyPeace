@@ -2,27 +2,27 @@
 
 <p align="center">
     <p align="center">
-        <a href="" target="blank">
-            <img src="" alt="Watchers"/>
+        <a href="https://github.com/Rajendrakhanal/MyPeace" target="blank">
+            <img src="https://img.shields.io/github/watchers/Rajendrakhanal/MyPeace?style=for-the-badge&logo=appveyor" alt="Watchers"/>
         </a>
-        <a href="" target="blank">
-            <img src="" alt="Forks"/>
+        <a href="https://github.com/Rajendrakhanal/MyPeace/fork" target="blank">
+            <img src="https://img.shields.io/github/forks/Rajendrakhanal/MyPeace?style=for-the-badge&logo=appveyor" alt="Forks"/>
         </a>
-        <a href="" target="blank">
-            <img src="" alt="Star"/>
-        </a>
-    </p>
-    <p align="center">
-        <a href="" target="blank">
-            <img src="" alt="Issue"/>
-        </a>
-        <a href="" target="blank">
-            <img src="" alt="Open Pull Request"/>
+        <a href="https://github.com/Rajendrakhanal/MyPeace/stargazers" target="blank">
+            <img src="https://img.shields.io/github/stars/Rajendrakhanal/MyPeace?style=for-the-badge&logo=appveyor" alt="Star"/>
         </a>
     </p>
     <p align="center">
-        <a href="" target="blank">
-            <img src="" alt="License" />
+        <a href="https://github.com/Rajendrakhanal/MyPeace/issues" target="blank">
+            <img src="https://img.shields.io/github/issues/Rajendrakhanal/MyPeace?style=for-the-badge&logo=appveyor" alt="Issue"/>
+        </a>
+        <a href="https://github.com/Rajendrakhanal/MyPeace/pulls" target="blank">
+            <img src="https://img.shields.io/github/issues-pr/Rajendrakhanal/MyPeace?style=for-the-badge&logo=appveyor" alt="Open Pull Request"/>
+        </a>
+    </p>
+    <p align="center">
+        <a href="https://github.com/Rajendrakhanal/MyPeace/blob/master/LICENSE" target="blank">
+            <img src="https://img.shields.io/github/license/Rajendrakhanal/MyPeace?style=for-the-badge&logo=appveyor" alt="License" />
         </a>
     </p>
 </p>
@@ -36,7 +36,6 @@
 - [Demo](#demo)
 - [Installation](#installation)
 - [Dependencies](#dependencies)
-- [Contributing](#contributing)
 - [License](#license)
 
 ## Features
