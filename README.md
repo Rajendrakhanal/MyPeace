@@ -40,22 +40,32 @@
 
 ## Features
 
+- Login and SignUp
   <details>
     <summary> </summary>
-    <img src="" width=750/>
+    <img src="https://github.com/Rajendrakhanal/MyPeace/assets/95162952/08bdfcb1-861a-451c-b69e-60c24b4fc0a4" width=750/>
   </details>
 
   <details>
     <summary> </summary>
-    <img src="" width=750/>
+    <img src="https://github.com/Rajendrakhanal/MyPeace/assets/95162952/0c7856f7-5bca-4145-8597-3818e294c58c" width=750/>
   </details>
-
 
   <details>
     <summary> </summary>
-    <img src="" width=750/>
+    <img src="https://github.com/Rajendrakhanal/MyPeace/assets/95162952/bebba8dd-1456-4b7a-ae96-cc0ae499474f" width=750/>
   </details>
 
+- Personalized Mental Health System
+  <details>
+    <summary> </summary>
+    <img src="https://github.com/Rajendrakhanal/MyPeace/assets/95162952/ea58c3a8-bcb4-4037-8bf0-4680e673e6e7" width=750/>
+  </details>
+- Empathetic Conversations
+  <details>
+    <summary> </summary>
+    <img src="https://github.com/Rajendrakhanal/MyPeace/assets/95162952/d4fc2cf7-a1d4-4a0a-a655-917d2e039ef4" width=750/>
+  </details>
 
 ## Demo
 
