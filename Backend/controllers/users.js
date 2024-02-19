@@ -75,22 +75,32 @@ const chatBot = async (req, res) => {
   try {
     const model = genAI.getGenerativeModel({ model: "gemini-pro" });
     const { responses } = req.body;
-    if (!responses) {
+    console.log(responses.messages)
+    if (!responses || !Array.isArray(responses)) {
       return res
         .status(400)
-        .json({ error: "Message is required in the request body." });
+        .json({ error: "Invalid or missing 'responses' array in the request body." });
     }
+
+    let paragraph = responses.map(response => {
+      return `${response.text} (${response.isYesNo})`;
+    }).join('\n');
+
+    console.log("Constructed paragraph:", paragraph);
+
     const result = await model.generateContent(
-      `Answer this question an emphatetic tone so as to pursuade the person to do better, to try harder and to make the person feel better. The question or statement is: 
-        ${responses}`
+      `Respond answering the mental state of an individual having these ${paragraph}. And answer like you may have been....`
     );
 
-    const response = await result.response.text();
+    const response = result.response.text();
+    console.log("Generated response:", response);
+
     res.status(200).json({ success: true, message: response });
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, error: "Internal Server Error" });
   }
 };
+
 
 module.exports = { registerUser, loginUser, chatBot };
