@@ -1,4 +1,6 @@
-# <p align="center"><img src="" width=300 /></p>
+
+# <p align="center"><img src="https://github.com/Rajendrakhanal/MyPeace/assets/95162952/bf1dc4ce-cb2e-4263-bac2-dcd5dabb0d13" width=300 /></p>
+
 
 <p align="center">
     <p align="center">
@@ -69,7 +71,9 @@
 
 ## Demo
 
-[Mypeace Project Demo Video]()
+
+[Mypeace Project Demo Video](https://github.com/Rajendrakhanal/MyPeace/assets/95162952/ce006bc1-abac-4273-b8da-c56c5b1a9b38)
+
 
 ## Installation
 
