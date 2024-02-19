@@ -59,11 +59,15 @@
   </details>
 
 - Personalized Mental Health System
+
+  Analyze user input and stress levels to suggest personalized mindfulness and stress reduction techniques.
   <details>
     <summary> </summary>
     <img src="https://github.com/Rajendrakhanal/MyPeace/assets/95162952/ea58c3a8-bcb4-4037-8bf0-4680e673e6e7" width=750/>
   </details>
 - Empathetic Conversations
+
+    Implement a chatbot powered by Gemini's API to engage users in empathetic and supportive conversations.
   <details>
     <summary> </summary>
     <img src="https://github.com/Rajendrakhanal/MyPeace/assets/95162952/d4fc2cf7-a1d4-4a0a-a655-917d2e039ef4" width=750/>
