@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const user = require("../models/user");
 const { GoogleGenerativeAI } = require("@google/generative-ai");
+const Questionairre = require("../models/questionairre");
 
 require("dotenv").config();
 
@@ -41,7 +42,9 @@ const registerUser = async (req, res) => {
 
   await User.save();
 
-  res.status(200).json({ _id: User.id, firstName, lastName, username });
+  res
+    .status(200)
+    .json({ _id: User.id, firstName, lastName, username, firstUser: true });
 };
 
 const loginUser = async (req, res) => {
@@ -59,11 +62,11 @@ const loginUser = async (req, res) => {
         .json({ message: "Incorrect username or password" });
     }
 
-    const { firstName, lastName } = User;
+    const { firstName, lastName, firstUser } = User;
     const token = createToken(User._id);
     res
       .status(200)
-      .json({ _id: User._id, firstName, lastName, username, token });
+      .json({ _id: User._id, firstName, lastName, username, token, firstUser });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -74,22 +77,30 @@ const genAI = new GoogleGenerativeAI(process.env.API_KEY);
 const chatBot = async (req, res) => {
   try {
     const model = genAI.getGenerativeModel({ model: "gemini-pro" });
-    const { responses } = req.body;
-    console.log(responses.messages)
-    if (!responses || !Array.isArray(responses)) {
-      return res
-        .status(400)
-        .json({ error: "Invalid or missing 'responses' array in the request body." });
+
+    const { question } = req.body;
+    if (!question) {
+      return res.status(400).json({
+        error: "'question' field is required. Please add a question to ask.",
+      });
     }
 
-    let paragraph = responses.map(response => {
-      return `${response.text} (${response.isYesNo})`;
-    }).join('\n');
+    const questionairre = await Questionairre.find({ user: req.user });
+
+    console.log("Questionairre:", questionairre);
+    console.log("Questions with answers:", questionairre.questionsWithAnswers);
+
+    let paragraph = questionairre[0].questionsWithAnswers
+      .map(
+        (questionWithAnswer) =>
+          `${questionWithAnswer.question} (${questionWithAnswer.answer})`
+      )
+      .join("\n");
 
     console.log("Constructed paragraph:", paragraph);
 
     const result = await model.generateContent(
-      `Respond answering the mental state of an individual having these ${paragraph}. And answer like you may have been....`
+      `Respond to the question "${question}" based on the following mental health state of the user:\n${paragraph}`
     );
 
     const response = result.response.text();
@@ -101,6 +112,5 @@ const chatBot = async (req, res) => {
     res.status(500).json({ success: false, error: "Internal Server Error" });
   }
 };
-
 
 module.exports = { registerUser, loginUser, chatBot };

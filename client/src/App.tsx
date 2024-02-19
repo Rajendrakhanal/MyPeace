@@ -44,7 +44,15 @@ export default function App() {
         <Route
           path="/"
           element={
-            loggedUser ? <Home /> : <LandingPage notification={notification} />
+            loggedUser ? (
+              loggedUser.firstUser ? (
+                <Home />
+              ) : (
+                <Navigate to="/chat" />
+              )
+            ) : (
+              <LandingPage notification={notification} />
+            )
           }
         />
 
@@ -76,7 +84,9 @@ export default function App() {
             />
           }
         />
-        <Route path="/chat" element={<Chat />}/>
+        
+        <Route path="/chat" element={<Chat />} />
+        
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </div>

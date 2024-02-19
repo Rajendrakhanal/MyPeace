@@ -83,9 +83,6 @@ const SignupForm: React.FC<SignupFormInterface> = ({
       }
 
       if (err.response && err.response.data) {
-        console.log("err.response", err.response);
-        console.log("err.response.data", err.response.data);
-
         // The request was made and the server responded with a status code
         // that falls out of the range of 2xx (and the server sends error message)
         const notification: INotification = {

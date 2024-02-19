@@ -22,6 +22,14 @@ const userSchema = new mongoose.Schema(
       minlength: 8,
       required: [true, "Please add password"],
     },
+    questionairre: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "questionairre",
+    },
+    firstUser: {
+      type: Boolean,
+      default: true,
+    },
   },
   {
     timestamps: true,

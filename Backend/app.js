@@ -1,8 +1,12 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
-const router = require("./routes/users");
+
+const usersRouter = require("./routes/users");
+const questionairreRouter = require("./routes/questionairre");
+
 const connectDatabase = require("./database/connect");
+const { tokenExtractor, userExtractor } = require("./utils/middleware");
 
 // Middleware
 app.use(cors("*"));
@@ -15,7 +19,13 @@ const port = process.env.PORT || 3000;
 const uri = process.env.CONNECTION_STRING;
 
 // Configuring routes
-app.use("/api/v1/users", router);
+app.use("/api/v1/users", usersRouter);
+app.use(
+  "/api/v1/questionairre",
+  tokenExtractor,
+  userExtractor,
+  questionairreRouter
+);
 
 // Defining start method to get backend started up!
 const start = () => {
