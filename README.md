@@ -44,17 +44,17 @@
 
 - Login and SignUp
   <details>
-    <summary> </summary>
+    <summary> UI of landing page </summary>
     <img src="https://github.com/Rajendrakhanal/MyPeace/assets/95162952/08bdfcb1-861a-451c-b69e-60c24b4fc0a4" width=750/>
   </details>
 
   <details>
-    <summary> </summary>
+    <summary> UI of Login page</summary>
     <img src="https://github.com/Rajendrakhanal/MyPeace/assets/95162952/0c7856f7-5bca-4145-8597-3818e294c58c" width=750/>
   </details>
 
   <details>
-    <summary> </summary>
+    <summary>UI of Registration for new User </summary>
     <img src="https://github.com/Rajendrakhanal/MyPeace/assets/95162952/bebba8dd-1456-4b7a-ae96-cc0ae499474f" width=750/>
   </details>
 
@@ -62,14 +62,14 @@
 
   Analyze user input and stress levels to suggest personalized mindfulness and stress reduction techniques.
   <details>
-    <summary> </summary>
+    <summary> Sample UI of Questionare</summary>
     <img src="https://github.com/Rajendrakhanal/MyPeace/assets/95162952/ea58c3a8-bcb4-4037-8bf0-4680e673e6e7" width=750/>
   </details>
 - Empathetic Conversations
 
     Implement a chatbot powered by Gemini's API to engage users in empathetic and supportive conversations.
   <details>
-    <summary> </summary>
+    <summary> Sample UI of Chatbot</summary>
     <img src="https://github.com/Rajendrakhanal/MyPeace/assets/95162952/d4fc2cf7-a1d4-4a0a-a655-917d2e039ef4" width=750/>
   </details>
 
@@ -132,10 +132,10 @@ Before running, Mypeace, you will need an OpenAI API key from Gemini Services. Y
   - Create a .env file 
     
     ```bash 
-      # inside .env file
+    # inside .env file
     PORT=3000
     CONNECTION_STRING=mongodb://localhost:27017/mydatabase
-    SECRET_KEY=********* # Your Secret_key
+    SECRET_KEY=********* # You can keep anything
     OPENAI_API_KEY=******************************* # Your key 
     ```
 
