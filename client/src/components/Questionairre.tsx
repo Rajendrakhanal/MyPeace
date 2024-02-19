@@ -1,9 +1,6 @@
 import React, { useState } from "react";
-
-interface Question {
-  text: string;
-  isYesNo: boolean;
-}
+import { useNavigate } from "react-router-dom";
+import { Question } from "../types/question";
 
 const questions: Question[] = [
   {
@@ -42,9 +39,12 @@ const questions: Question[] = [
 ];
 
 const Questionnaire: React.FC = () => {
+  const chatNavigation = useNavigate();
+
   const [answers, setAnswers] = useState<string[]>(
-    Array(questions.length).fill("No"),
+    Array(questions.length).fill("No")
   );
+  const [response, setResponse] = useState<string | undefined>("");
 
   const handleAnswerChange = (index: number, answer: string) => {
     const newAnswers = [...answers];
@@ -52,13 +52,28 @@ const Questionnaire: React.FC = () => {
     setAnswers(newAnswers);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const response = await submitAnswers(questions);
+    setResponse(response);
+  };
 
-    window.alert(
-      "Questionairre submitted! See developer console to view the answers",
-    );
-    console.log("answers", answers);
+  const submitAnswers = async ( questions: Question[]) => {
+    try {
+      const response = await fetch("http://localhost:3000/api/v1/users/bot", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ responses: questions, initialQuestion:true}),
+      });
+      const data = await response.json();
+      console.log(data)
+      chatNavigation("/chat");
+    } catch (error) {
+      console.error("Error submitting answers:", error);
+      return "Error submitting answers";
+    } 
   };
 
   return (
@@ -123,6 +138,12 @@ const Questionnaire: React.FC = () => {
           SUBMIT
         </button>
       </form>
+
+      {response && (
+        <div className="mt-4 p-4 rounded-lg text-blue-800 border-blue-300 bg-blue-50 dark:bg-gray-800 dark:text-blue-400 dark:border-blue-800">
+          <p>{response}</p>
+        </div>
+      )}
     </div>
   );
 };

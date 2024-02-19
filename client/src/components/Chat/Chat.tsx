@@ -3,10 +3,12 @@ import React, { useState } from "react";
 const Chat: React.FC = () => {
   const [messages, setMessages] = useState<string[]>([]);
   const [input, setInput] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleSendMessage = async () => {
     if (input.trim() !== "") {
       setMessages([...messages, input]);
+      setLoading(true);
 
       try {
         const response = await fetch("http://localhost:3000/api/v1/users/bot", {
@@ -15,20 +17,21 @@ const Chat: React.FC = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            responses: [{ role: "user", parts: [input] }],
+            responses: { messages },
           }),
         });
 
         if (response.ok) {
           const data = await response.json();
-          setMessages([...messages, data.response]);
-          console.log(messages);
+          setMessages(prevMessages => [...prevMessages, data.message]);
         } else {
           console.error("Error sending message to the backend");
         }
       } catch (error) {
         console.error("Error fetching data from the backend", error);
       }
+
+      setLoading(false);
       setInput("");
     }
   };
@@ -43,9 +46,7 @@ const Chat: React.FC = () => {
         </div>
         <div className="max-h-[300px] overflow-y-auto mb-4">
           {messages.map((message, index) => (
-            <div key={index} className="bg-indigo-100 p-2 mb-2 rounded-md">
-              {message}
-            </div>
+            <div key={index}>{message}</div>
           ))}
         </div>
         <div className="flex flex-col md:flex-row items-end">
@@ -59,8 +60,9 @@ const Chat: React.FC = () => {
           <button
             onClick={handleSendMessage}
             className="p-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none"
+            disabled={loading}
           >
-            Send
+            {loading ? "Sending..." : "Send"}
           </button>
         </div>
       </div>
